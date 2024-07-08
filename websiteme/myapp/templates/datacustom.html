@@ -1,0 +1,21 @@
+<!-- templates/datacustom.html -->
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Session Data Example</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h2>Session Data Example</h2>
+    <p>Custom Session Data: {{ custom_data }}</p>
+    <form method="post" action="{% url 'set_session' %}">
+        {% csrf_token %}
+        <button type="submit">Set Session Data</button>
+    </form>
+    <form method="post" action="{% url 'clear_session' %}">
+        {% csrf_token %}
+        <button type="submit">Clear Session Data</button>
+    </form>
+</body>
+</html>
