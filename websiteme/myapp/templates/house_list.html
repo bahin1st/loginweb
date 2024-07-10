@@ -1,0 +1,11 @@
+<!-- templates/house_list.html -->
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h2>Your Houses</h2>
+  <ul>
+    {% for house in houses %}
+      <li><a href='/house/{{house.id}}'> {{ house.title }} - {{ house.price }} - {% if house.is_for_sale %}For Sale{% else %}For Rent{% endif %}</a></li>
+    {% endfor %}
+  </ul>
+{% endblock %}

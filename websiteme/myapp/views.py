@@ -1,8 +1,9 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth import login,authenticate,logout
-from .forms import LoginForm , RegisterForm
+from .forms import LoginForm , RegisterForm,HouseForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from .models import House
 
 # Create your views here.
 
@@ -88,3 +89,37 @@ def profile(request):
     else:
         form = ProfileForm(instance=profile)
     return render(request, 'profile.html', {'form': form})
+
+
+def register_house(request):
+    if request.method == 'POST':
+        form = HouseForm(request.POST)
+        if form.is_valid():
+            house = form.save(commit=False)
+            house.owner = request.user
+            house.save()
+            return redirect('house_list')
+    else:
+        form = HouseForm()
+    return render(request, 'register_house.html', {'form': form})
+
+def edit_house(request, house_id):
+    house = get_object_or_404(House, id=house_id)
+    if request.method == 'POST':
+        form = HouseForm(request.POST, instance=house)
+        if form.is_valid():
+            form.save()
+            return redirect('house_list')
+    else:
+        form = HouseForm(instance=house)
+    
+    return render(request, 'edit_house.html', {'form': form})
+
+def house_list(request):
+    houses = House.objects.filter(owner=request.user)
+    return render(request, 'house_list.html', {'houses': houses})
+
+def housecliked(request,id):
+    house = House.objects.get(id=id)
+    context={'house':house}
+    return render(request,'thehouse.html',context)

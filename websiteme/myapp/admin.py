@@ -1,3 +1,8 @@
-from django.contrib import admin
+# myapp/admin.py
 
-# Register your models here.
+from django.contrib import admin
+from .models import Profile,House
+
+# Register the User model
+admin.site.register(Profile)
+admin.site.register(House)

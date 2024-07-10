@@ -19,11 +19,17 @@ class LoginForm(forms.Form):
     
 # forms.py
 from django import forms
-from .models import Profile
+from .models import Profile, House
 
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['bio', 'location', 'birth_date']
+        fields = ['firstname', 'lastname', 'phonenumber', 'address_line',
+            'postcode', 'email', 'country', 'state_region',
+            ]
 
-    
+
+class HouseForm(forms.ModelForm):
+    class Meta:
+        model = House
+        fields = ['title', 'description', 'address', 'price', 'is_for_sale'] 
