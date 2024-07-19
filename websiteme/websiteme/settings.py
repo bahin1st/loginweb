@@ -60,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -85,8 +86,9 @@ TEMPLATES = [
 import os
 WSGI_APPLICATION = 'websiteme.wsgi.application'
 
-MEDIA_URL = '/D:\loginweb\websiteme\static\profilepic/'
+MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 

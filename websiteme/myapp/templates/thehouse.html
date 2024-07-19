@@ -1,8 +1,128 @@
-<!-- templates/house_list.html -->
+<!-- templates/house_detail.html -->
 {% extends "base_generic.html" %}
+{% load static %}
 
 {% block content %}
-  <h2>The house with id {{house.id}}</h2>
+<style>
+  body {
+    background-color: #f0f0f0;
+  }
+  .detail-section {
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin: 15px;
+    padding: 20px;
+    width:100%
+    padding-inside: 20px;
+  }
   
-  {{house.price}}
+  .details-header {
+    margin-bottom: 20px;
+  }
+  .details-header h2 {
+    color: #007bff;
+  }
+  .buttons {
+    margin-top: 20px;
+    text-align: center;
+  }
+  .custom-section {
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin: 15px;
+    padding: 20px;
+    text-align: center;
+  }
+</style>
+<div class="container py-5">
+  <div class="row">
+    <div class="col-md-12">
+      <!-- Carousel for house images -->
+      <div id="carouselExampleIndicators" class="carousel slide slideshow" data-ride="carousel">
+        <ol class="carousel-indicators">
+          {% for image in house.images.all %}
+            <li data-target="#carouselExampleIndicators" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
+          {% endfor %}
+        </ol>
+        <div class="carousel-inner">
+          {% for image in house.images.all %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+              <img class="d-block w-100" src="{{ image.image.url }}" alt="Slide">
+            </div>
+          {% endfor %}
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+    </div>
+  </div>
+  
+  
+    
+      <div class="detail-section">
+        <div class="details-header">
+          <h2>Property Details</h2>
+          <h1>{{ house.title }}</h1>
+        </div>
+        <p>{{ house.description }}</p>
+        <p><strong>Address:</strong> {{ house.address }}</p>
+        <p><strong>Price:</strong> {{ house.price }}</p>
+        <p><strong>Status:</strong> {{ house.status }}</p>
+        <p><strong>Property Type:</strong> {{ house.property_type }}</p>
+        <p><strong>Parking Spaces:</strong> {{ house.parking_spaces }}</p>
+        <p><strong>Furnishing Status:</strong> {{ house.furnishing_status }}</p>
+        <p><strong>Balcony:</strong> {{ house.balcony }}</p>
+        <p><strong>Garden:</strong> {{ house.garden }}</p>
+        <p><strong>Pool:</strong> {{ house.pool }}</p>
+        <p><strong>Heating Type:</strong> {{ house.heating_type }}</p>
+        <p><strong>Cooling Type:</strong> {{ house.cooling_type }}</p>
+      
+    </div>
+    
+      <div class="detail-section">
+        <p><strong>Pet Policy:</strong> {{ house.pet_policy }}</p>
+        <p><strong>Security Features:</strong> {{ house.security_features }}</p>
+        <p><strong>Nearby Amenities:</strong> {{ house.nearby_amenities }}</p>
+        <p><strong>Contact Phone:</strong> {{ house.contact_phone }}</p>
+        <p><strong>Contact Email:</strong> {{ house.contact_email }}</p>
+        <p><strong>Rooms Count:</strong> {{ house.rooms_count }}</p>
+        <p><strong>Bathrooms Count:</strong> {{ house.bathrooms_count }}</p>
+        <p><strong>Area:</strong> {{ house.area }} sq ft</p>
+        <p><strong>Floors:</strong> {{ house.floors }}</p>
+        <p><strong>For Sale:</strong> {{ house.is_for_sale }}</p>
+      
+    </div>
+  
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="custom-section">
+        <!-- Add custom content here -->
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="buttons">
+        {% if user.username == house.owner.username %}
+          <a href="{% url 'edit_house' house.id %}" class="btn btn-primary">Edit this house</a>
+          <form action="{% url 'delete' house.id %}" method="post" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Delete this house</button>
+          </form>
+        {% endif %}
+        <a href="{% url 'house_list' %}" class="btn btn-secondary">Back to house list</a>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
