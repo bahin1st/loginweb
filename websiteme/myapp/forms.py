@@ -36,7 +36,7 @@ class HouseForm(forms.ModelForm):
                   'parking_spaces','furnishing_status','balcony','garden','pool','heating_type',
                   'cooling_type','pet_policy','security_features','nearby_amenities','contact_phone',
                   'contact_email','rooms_count',
-                  'bathrooms_count','area','floors', 'is_for_sale','pics',] 
+                  'bathrooms_count','area','floors', 'is_for_sale','pics','country'] 
         
 
 
@@ -59,3 +59,5 @@ class HouseFilterForm(forms.Form):
     max_rooms = forms.IntegerField(required=False, label='Max Rooms')
     min_area = forms.FloatField(required=False, label='Min Area')
     max_area = forms.FloatField(required=False, label='Max Area')
+    country = forms.CharField(max_length=255, required=False)
+    

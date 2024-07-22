@@ -267,6 +267,7 @@
   
 
 <script>
+  
   function getLocation() {
       if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(showPosition, showError);
@@ -280,7 +281,7 @@
       var lon = position.coords.longitude;
 
       // Replace 'YOUR_API_KEY' with your actual OpenCage API key
-      var apiKey = 'da7044e1f5bd4a769lece40c0b3ef4219';
+      var apiKey = 'da7044e1f5bd4a769ece40c0b3ef4219';
       var url = `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&key=${apiKey}`;
 
       fetch(url)
@@ -322,6 +323,18 @@
   }
   
   window.onload = getLocation;
+
+
+ function() {
+        const dropdown = document.getElementById('location');
+        const countryField = document.getElementById('countries');
+
+        dropdown.addEventListener('change', function() {
+            countryField.value = dropdown.value;
+        });
+    };
+
+
 </script>
 </head>
 
@@ -346,7 +359,6 @@
                 <select id="country" name="country">
                     <option value="af">Afghanistan</option>
                     <option value="al">Albania</option>
-                    <option value="dz" selected><div id="location"></div></option>
                     <option value="as">American Samoa</option>
                     <option value="ad">Andorra</option>
                     <option value="ao">Angola</option>

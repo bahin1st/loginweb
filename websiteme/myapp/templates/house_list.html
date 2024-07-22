@@ -31,6 +31,10 @@
       <label for="max_area">Max Area:</label>
       <input type="number" step="0.01" class="form-control" name="max_area" id="max_area" value="{{ filter_form.max_area.value }}">
     </div>
+    <div class="form-group">
+      <label for="countries">Country:</label>
+      <input type="text" name="countries" id="countries" value="">
+    </div>
     <button type="submit" class="btn btn-primary">Filter</button>
     <a href="{% url 'house_list' %}" class="btn btn-secondary">Clear Filter</a>
   </form>

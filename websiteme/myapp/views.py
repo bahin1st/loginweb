@@ -124,6 +124,7 @@ def house_list(request):
         max_rooms = filter_form.cleaned_data.get('max_rooms')
         min_area = filter_form.cleaned_data.get('min_area')
         max_area = filter_form.cleaned_data.get('max_area')
+        country=filter_form.cleaned_data.get('country')
         
         if min_price:
             house_list = house_list.filter(price__gte=min_price)
@@ -133,6 +134,9 @@ def house_list(request):
             house_list = house_list.filter(property_type=property_type)
         if status:
             house_list = house_list.filter(status=status)
+        if country:
+            house_list = house_list.filter(country=country)
+
         if min_rooms:
             house_list = house_list.filter(rooms_count__gte=min_rooms)
         if max_rooms:
